@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* scanner animations */
+
+@keyframes scan-line {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes pulse-border {
+  0%,
+  100% {
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    border-color: rgba(99, 102, 241, 1);
+  }
+}
+
+@keyframes corner-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scan-line {
+  position: absolute;
+  left: 5%;
+  width: 90%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #818cf8,
+    #6366f1,
+    #818cf8,
+    transparent
+  );
+  box-shadow: 0 0 12px 4px rgba(99, 102, 241, 0.5);
+  animation: scan-line 2.5s ease-in-out infinite;
+}
+
+.scanner-corners {
+  position: absolute;
+  inset: 12%;
+  border: 3px solid rgba(99, 102, 241, 0.5);
+  border-radius: 12px;
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+.scanner-corners::before,
+.scanner-corners::after,
+.scanner-corners-bottom::before,
+.scanner-corners-bottom::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: #6366f1;
+  border-style: solid;
+  border-width: 0;
+  animation: corner-glow 2s ease-in-out infinite;
+}
+
+/* top corners */
+.scanner-corners::before {
+  top: -3px;
+  left: -3px;
+  border-top-width: 4px;
+  border-left-width: 4px;
+  border-top-left-radius: 12px;
+}
+.scanner-corners::after {
+  top: -3px;
+  right: -3px;
+  border-top-width: 4px;
+  border-right-width: 4px;
+  border-top-right-radius: 12px;
+}
+
+/* bottom corners */
+.scanner-corners-bottom {
+  position: absolute;
+  inset: 12%;
+  pointer-events: none;
+}
+.scanner-corners-bottom::before {
+  bottom: -3px;
+  left: -3px;
+  border-bottom-width: 4px;
+  border-left-width: 4px;
+  border-bottom-left-radius: 12px;
+}
+.scanner-corners-bottom::after {
+  bottom: -3px;
+  right: -3px;
+  border-bottom-width: 4px;
+  border-right-width: 4px;
+  border-bottom-right-radius: 12px;
+}
